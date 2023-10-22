@@ -42,26 +42,24 @@ public class StatusController {
         return "redirect:/product/status";
     }
 
+    @GetMapping("/status/edit/{id}")
+    String edit(Model model, @PathVariable("id") int id){
+        Status status = statusRepository.findById(id).orElse(null);
+        if(status == null) return "redirect:/product/status";
+        model.addAttribute("status", status);
+        return "productManager/status/update";
+    }
 
-
-//    @GetMapping("/status/edit/{id}")
-//    String edit(Model model, @PathVariable("id") int id){
-//        Status status = statusRepository.findById(id).orElse(null);
-//        if(status == null) return "redirect:/product/status";
-//        model.addAttribute("status", status);
-//        return "productManager/status/update";
-//    }
-//
-//    @PostMapping("/status/edit/{id}")
-//    String update(Model model, @PathVariable("id") int id,
-//                  @Valid @ModelAttribute("status") Status status){
-//        Status statusTOUPDATE = statusRepository.findById(id).orElse(null);
-//        if(statusTOUPDATE != null){
-//            statusTOUPDATE.setName(status.getName());
-//            statusRepository.save(statusTOUPDATE);
-//        }
-//        return "redirect:/product/status";
-//    }
+    @PostMapping("/status/edit/{id}")
+    String update(Model model, @PathVariable("id") int id,
+                  @Valid @ModelAttribute("status") Status status){
+        Status statusTOUPDATE = statusRepository.findById(id).orElse(null);
+        if(statusTOUPDATE != null){
+            statusTOUPDATE.setName(status.getName());
+            statusRepository.save(statusTOUPDATE);
+        }
+        return "redirect:/product/status";
+    }
 
     @PostMapping("/status/delete/{id}")
     String delete(Model model, @PathVariable("id") int id){

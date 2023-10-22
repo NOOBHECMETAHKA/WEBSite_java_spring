@@ -17,25 +17,26 @@ public class Application {
     @Column
     private LocalDate localDate = LocalDate.now();
 
+    @ManyToOne
+    @JoinColumn(name="application_person_id", nullable=false)
+    private ModelUser person;
+
     public Application() {
     }
 
-    public Application(int id, String reason, String text, LocalDate localDate) {
+    public Application(String reason, String text, LocalDate localDate, ModelUser person) {
+        this.reason = reason;
+        this.text = text;
+        this.localDate = localDate;
+        this.person = person;
+    }
+
+    public Application(int id, String reason, String text, LocalDate localDate, ModelUser person) {
         this.id = id;
         this.reason = reason;
         this.text = text;
         this.localDate = localDate;
-    }
-
-    public Application(String reason, String text, LocalDate localDate) {
-        this.reason = reason;
-        this.text = text;
-        this.localDate = localDate;
-    }
-
-    public Application(String reason, String text) {
-        this.reason = reason;
-        this.text = text;
+        this.person = person;
     }
 
     public int getId() {
@@ -68,5 +69,13 @@ public class Application {
 
     public void setLocalDate(LocalDate localDate) {
         this.localDate = localDate;
+    }
+
+    public ModelUser getPerson() {
+        return person;
+    }
+
+    public void setPerson(ModelUser person) {
+        this.person = person;
     }
 }

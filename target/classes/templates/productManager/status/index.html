@@ -9,20 +9,21 @@
 <body>
 <div th:insert="blocks/header :: header"></div>
 <div class="container mt-5">
+  <a class="btn btn-success" href="/product/status/add">Добавить</a>
   <table class="table">
     <thead>
     <tr>
       <th scope="col">Наименование</th>
-      <th scope="col">Номера заказов</th>
+<!--      <th scope="col">Номера заказов</th>-->
       <th scope="col">Функции</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="el : ${statuses}">
       <td th:text="${el.getName()}"></td>
-      <td>
-        <span th:each="order : ${el.getOrders()}" th:text="${order.getId()} + ', '"></span>
-      </td>
+<!--      <td>-->
+<!--        <span th:each="order : ${el.getOrders()}" th:text="${order.getId()} + ', '"></span>-->
+<!--      </td>-->
       <td>
         <div class="d-flex g-3">
           <a th:href="'/product/status/edit/' + ${el.getId()}" class="btn btn-warning">Изменить</a>

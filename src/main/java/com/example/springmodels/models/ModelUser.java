@@ -1,12 +1,11 @@
 package com.example.springmodels.models;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
-public class modelUser {
-    public modelUser(){}
+public class ModelUser {
+    public ModelUser(){}
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID_User;
@@ -14,10 +13,10 @@ public class modelUser {
     private String password;
     private boolean active;
 
-    @ElementCollection(targetClass = roleEnum.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = RoleEnum.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
-    private Set<roleEnum> roles;
+    private Set<RoleEnum> roles;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "address_person_id")
@@ -59,15 +58,15 @@ public class modelUser {
         this.active = active;
     }
 
-    public Set<roleEnum> getRoles() {
+    public Set<RoleEnum> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<roleEnum> roles) {
+    public void setRoles(Set<RoleEnum> roles) {
         this.roles = roles;
     }
 
-    public modelUser(String username, String password, boolean active, Set<roleEnum> roles) {
+    public ModelUser(String username, String password, boolean active, Set<RoleEnum> roles) {
         this.username = username;
         this.password = password;
         this.active = active;

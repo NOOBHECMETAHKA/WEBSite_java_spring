@@ -4,7 +4,6 @@ package com.example.springmodels.models;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.List;
-import java.util.Set;
 
 
 @Entity
@@ -24,6 +23,9 @@ public class Address {
     @NotNull
     private String apartment;
 
+    @ManyToOne
+    @JoinColumn(name="address_person_id", nullable=false)
+    private ModelUser modelUser;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "address_orders_id")
@@ -32,31 +34,61 @@ public class Address {
     public Address() {
     }
 
-    public Address(String city, String street, String house, String entrance, String apartment) {
+    public Address(String city, String street, String house, String entrance, String apartment, ModelUser application) {
         this.city = city;
         this.street = street;
         this.house = house;
         this.entrance = entrance;
         this.apartment = apartment;
+        this.modelUser = application;
     }
 
-    public Address(String city, String street, String house, String entrance, String apartment, List<Order> orders) {
+    public Address(String city, String street, String house, String entrance, String apartment, ModelUser application, List<Order> orders) {
         this.city = city;
         this.street = street;
         this.house = house;
         this.entrance = entrance;
         this.apartment = apartment;
+        this.modelUser = application;
         this.orders = orders;
     }
 
-    public Address(int id, String city, String street, String house, String entrance, String apartment, List<Order> orders) {
+    public Address(int id, String city, String street, String house, String entrance, String apartment, ModelUser application) {
         this.id = id;
         this.city = city;
         this.street = street;
         this.house = house;
         this.entrance = entrance;
         this.apartment = apartment;
+        this.modelUser = application;
+    }
+
+    public Address(int id, String city, String street, String house, String entrance, String apartment, ModelUser modelUser, List<Order> orders) {
+        this.id = id;
+        this.city = city;
+        this.street = street;
+        this.house = house;
+        this.entrance = entrance;
+        this.apartment = apartment;
+        this.modelUser = modelUser;
         this.orders = orders;
+    }
+
+    public Address(int id, String city, String street, String house, String entrance, String apartment) {
+        this.id = id;
+        this.city = city;
+        this.street = street;
+        this.house = house;
+        this.entrance = entrance;
+        this.apartment = apartment;
+    }
+
+    public Address(String city, String street, String house, String entrance, String apartment) {
+        this.city = city;
+        this.street = street;
+        this.house = house;
+        this.entrance = entrance;
+        this.apartment = apartment;
     }
 
     public int getId() {
@@ -113,5 +145,13 @@ public class Address {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public ModelUser getModelUser() {
+        return modelUser;
+    }
+
+    public void setModelUser(ModelUser modelUser) {
+        this.modelUser = modelUser;
     }
 }

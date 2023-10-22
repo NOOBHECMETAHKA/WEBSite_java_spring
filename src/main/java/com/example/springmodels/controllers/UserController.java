@@ -1,7 +1,8 @@
 package com.example.springmodels.controllers;
 
-import com.example.springmodels.models.modelUser;
-import com.example.springmodels.models.roleEnum;
+import com.example.springmodels.models.ModelUser;
+import com.example.springmodels.models.RoleEnum;
+import com.example.springmodels.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    private com.example.springmodels.repos.userRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -23,7 +24,7 @@ public class UserController {
     @GetMapping("/users")
     public String userView(Model model)
     {
-        Iterable<modelUser> userList = userRepository.findAll();
+        Iterable<ModelUser> userList = userRepository.findAll();
         model.addAttribute("user_list", userList);
         return "admin/users";
     }
@@ -39,7 +40,7 @@ public class UserController {
     public String updView(@PathVariable Long id, Model model)
     {
         model.addAttribute("user_object",userRepository.findById(id).orElseThrow());
-        model.addAttribute("roles", roleEnum.values());
+        model.addAttribute("roles", RoleEnum.values());
         return "admin/update";
     }
 
@@ -49,7 +50,7 @@ public class UserController {
                               @RequestParam(name="roles[]", required = false) String[] roles,
                               @PathVariable Long id)
     {
-        modelUser user = userRepository.findById(id).orElseThrow();
+        ModelUser user = userRepository.findById(id).orElseThrow();
         user.setUsername(username);
 
         user.getRoles().clear();
@@ -57,7 +58,7 @@ public class UserController {
         {
             for(String role: roles)
             {
-                user.getRoles().add(roleEnum.valueOf(role));
+                user.getRoles().add(RoleEnum.valueOf(role));
             }
         }
 

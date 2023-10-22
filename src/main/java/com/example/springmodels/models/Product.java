@@ -19,6 +19,10 @@ public class Product {
     @Column
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name="category_product_id", nullable=false)
+    private Category category;
+
 
     @ManyToMany
     @JoinTable(name = "order_list", joinColumns =@JoinColumn(name = "product_id"),
@@ -28,18 +32,35 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, double price, String description, List<Order> orders) {
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.orders = orders;
-    }
-
-    public Product(int id, String name, double price, String description, List<Order> orders) {
+    public Product(int id, String name, double price, String description, Category category, List<Order> orders) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
+        this.category = category;
+        this.orders = orders;
+    }
+
+    public Product(int id, String name, double price, String description, Category category) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.category = category;
+    }
+
+    public Product(String name, double price, String description, Category category) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.category = category;
+    }
+
+    public Product(String name, double price, String description, Category category, List<Order> orders) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.category = category;
         this.orders = orders;
     }
 
@@ -81,5 +102,13 @@ public class Product {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
