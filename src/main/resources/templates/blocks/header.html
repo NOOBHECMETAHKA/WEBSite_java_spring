@@ -1,0 +1,48 @@
+<header class="p-3" th:fragment="header">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li>
+                    <a href="/" class="nav-link"><h4 class="p-1 m-0">Главная</h4></a>
+                </li>
+                <li>
+                    <div class="dropdown p-1 m-0">
+                        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Панель администратора
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/admin/users">Пользователи</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="dropdown p-1 m-0">
+                        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Пользовательская панель
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">панель</a></li>
+                            <li><a class="dropdown-item" href="#">панель панель</a></li>
+                            <li><a class="dropdown-item" href="#">панель панель панель</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="dropdown p-1 m-0">
+                        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Кассовое управление
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/product/status">Статусы</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <div class="text-end">
+                <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-danger">Выход</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>

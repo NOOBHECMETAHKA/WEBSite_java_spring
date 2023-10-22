@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <title>AUTH</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<div class="container g-3 mt-5 w-50">
+  <div class="card">
+    <div class="card-body">
+      <form th:action="@{/login}" method="post" class="row g-3">
+        <h1 class="text-center">Авторизация</h1>
+        <div class="col-12">
+          <input name="username" type="text" class="form-control" id="inputEmail4" placeholder="Электронная почта">
+        </div>
+        <div class="col-12">
+          <input name="password" type="password" class="form-control" id="inputPassword4" placeholder="Пароль">
+        </div>
+        <div th:if="${param.error}">
+          <p class="text-danger">Неверное имя пользователя или пароль.</p>
+          <hr>
+        </div>
+        <div class="col-md-10">
+          <button type="submit" class="btn btn-primary">Войти</button>
+        </div>
+        <div class="col-md-10">
+          <a class="nav-link" href="/registration">Регистрация</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
