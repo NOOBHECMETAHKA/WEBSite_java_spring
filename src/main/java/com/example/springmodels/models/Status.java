@@ -30,6 +30,10 @@ public class Status {
         this.orders = orders;
     }
 
+    public Status(String name) {
+        this.name = name;
+    }
+
     public Status() {
 
     }

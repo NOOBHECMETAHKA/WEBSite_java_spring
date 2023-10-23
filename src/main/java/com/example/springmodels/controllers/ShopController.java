@@ -2,10 +2,9 @@ package com.example.springmodels.controllers;
 
 
 import com.example.springmodels.dao.ProductDao;
-import com.example.springmodels.models.Address;
-import com.example.springmodels.models.Application;
-import com.example.springmodels.models.ModelUser;
+import com.example.springmodels.models.*;
 import com.example.springmodels.repos.*;
+import jdk.jshell.Snippet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -28,6 +27,8 @@ public class ShopController {
     ApplicationRepository applicationRepository;
     UserRepository userRepository;
     AddressRepository addressRepository;
+    StatusRepository statusRepository;
+    OrderRepository orderRepository;
 
     ProductDao productDao;
     @Autowired
@@ -36,13 +37,17 @@ public class ShopController {
                           ApplicationRepository applicationRepository,
                           UserRepository userRepository,
                           AddressRepository addressRepository,
+                          StatusRepository statusRepository,
+                          OrderRepository orderRepository,
                           ProductDao productDao){
         this.applicationRepository = applicationRepository;
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
         this.productDao = productDao;
         this.userRepository = userRepository;
+        this.statusRepository = statusRepository;
         this.addressRepository = addressRepository;
+        this.orderRepository = orderRepository;
     }
 
     @GetMapping("/shop")
@@ -90,9 +95,14 @@ public class ShopController {
     }
 
     @PostMapping("/order/create")
-    String makeOrder(Model model){
-
+    String makeOrder(Model model, @ModelAttribute(name = "id_address") int id_address){
+        Address address = addressRepository.findById(id_address).orElseThrow();
+        Status status = statusRepository.findById(1).orElse(new Status("В разработке"));
+        Order order = new Order(LocalDate.now(), status, address);
+        orderRepository.save(order);
         return "redirect:/shop";
     }
+
+
 }
 

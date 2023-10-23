@@ -41,6 +41,19 @@ public class Order {
         this.products = products;
     }
 
+    public Order(int id, LocalDate dateCreated, Status status, Address address) {
+        this.id = id;
+        this.dateCreated = dateCreated;
+        this.status = status;
+        this.address = address;
+    }
+
+    public Order(LocalDate dateCreated, Status status, Address address) {
+        this.dateCreated = dateCreated;
+        this.status = status;
+        this.address = address;
+    }
+
     public Order() {
 
     }

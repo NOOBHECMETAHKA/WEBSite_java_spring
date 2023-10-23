@@ -35,10 +35,10 @@
         </form>
         <div class="card mt-5">
             <div class="card-body">
-                <form class="row" action="" method="post">
+                <form class="row" action="/order/create" method="post">
                     <div class="mb-3">
                         <label for="addresses" class="form-label">Доступные адреса</label>
-                        <select name="address" id="addresses" class="form-select" aria-label="Default select example">
+                        <select name="id_address" id="addresses" class="form-select" aria-label="Default select example">
                             <option th:each="el : ${addresses}" th:value="${el.getId()}"
                                     th:text="'Город: ' + ${el.getCity()} + ' Улица: ' + ${el.getStreet()} + ' Дом: ' + ${el.getHouse()} + ' Подъезд: ' + ${el.getEntrance()} + ' Квартира: ' + ${el.getApartment()}">
                             </option>
