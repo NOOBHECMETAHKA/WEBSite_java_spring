@@ -39,6 +39,11 @@ public class Application {
         this.person = person;
     }
 
+    public Application(String reason, String text) {
+        this.reason = reason;
+        this.text = text;
+    }
+
     public int getId() {
         return id;
     }

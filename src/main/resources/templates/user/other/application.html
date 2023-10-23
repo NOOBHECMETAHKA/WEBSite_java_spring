@@ -10,6 +10,25 @@
 <body>
 <div th:insert="blocks/header :: header"></div>
 <div class="container mt-5">
+    <form action="/application/create" th:object="${application}" method="post">
+        <h3 class="text-center">Создания сообщения</h3>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Заголовок</label>
+            <input th:field="*{reason}" type="text" class="form-control" id="exampleFormControlInput1"
+                   placeholder="Картинка не грузится... (Что конкретно)">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Описание</label>
+            <textarea th:field="*{text}" class="form-control" id="exampleFormControlTextarea1" rows="3"
+                      placeholder="Не работает... (Как вы этого достигли?)"></textarea>
+            <span id="passwordHelpInline" class="form-text" th:text="'Электронная почта пользователя: ' + ${userEmail}"></span>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary" type="submit">Написать</button>
+        </div>
+    </form>
+</div>
+<div class="container mt-5">
     <div class="row justify-content-center">
         <div class="card text-bg-light mb-3 m-1" style="max-width: 18rem;" th:each="el : ${applications}">
             <div class="card-header" th:text="${el.getLocalDate()}"></div>
@@ -18,11 +37,6 @@
                 <p class="card-text" th:text="${el.getText()}"></p>
                 <hr>
                 <p>Пользователь: <span th:text="${el.getPerson().getUsername()}"></span></p>
-            </div>
-            <div class="card-footer">
-                <form th:action="'/admin/application/delete/' + ${el.getId()}" method="post">
-                    <button class="btn btn-danger" type="submit">Удалить</button>
-                </form>
             </div>
         </div>
     </div>

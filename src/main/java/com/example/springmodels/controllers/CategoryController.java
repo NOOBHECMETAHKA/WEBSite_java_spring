@@ -50,5 +50,4 @@ public class CategoryController {
         return "redirect:/product/category";
     }
 
-
 }
