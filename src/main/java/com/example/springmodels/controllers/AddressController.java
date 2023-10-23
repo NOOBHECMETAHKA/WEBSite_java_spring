@@ -51,6 +51,31 @@ public class AddressController {
         return "redirect:/product/address";
     }
 
+    @GetMapping("/address/edit/{id}")
+    String edit(Model model, @PathVariable("id") int id){
+        Address address = addressRepository.findById(id).orElseThrow();
+        Iterable<ModelUser> users = userRepository.findAll();
+        model.addAttribute("address", address);
+        model.addAttribute("users", users);
+        return "productManager/address/update";
+    }
+
+    @PostMapping("address/edit/{id}")
+    String update(Model model, @PathVariable("id") int id,
+                  @ModelAttribute("address") Address address,
+                  @ModelAttribute("id_user") long id_user){
+        Address addressToUpdate = addressRepository.findById(id).orElseThrow();
+        ModelUser modelUser = userRepository.findById(id_user).orElseThrow();
+        addressToUpdate.setCity(address.getCity());
+        addressToUpdate.setStreet(address.getStreet());
+        addressToUpdate.setHouse(address.getHouse());
+        addressToUpdate.setEntrance(address.getEntrance());
+        addressToUpdate.setApartment(address.getApartment());
+        addressToUpdate.setModelUser(modelUser);
+        addressRepository.save(addressToUpdate);
+        return "redirect:/product/address";
+    }
+
     @PostMapping("/address/delete/{id}")
     String delete(Model model, @PathVariable("id") int id){
         addressRepository.deleteById(id);

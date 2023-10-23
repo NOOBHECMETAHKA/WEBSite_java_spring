@@ -41,6 +41,29 @@ public class ProductController {
         return "productManager/product/add";
     }
 
+    @GetMapping("/product/edit/{id}")
+    String edit(Model model, @PathVariable("id") int id){
+        Product product = productRepository.findById(id).orElseThrow();
+        Iterable<Category> categories = categoryRepository.findAll();
+        model.addAttribute("product", product);
+        model.addAttribute("categories", categories);
+        return "productManager/product/update";
+    }
+
+    @PostMapping("/product/edit/{id}")
+    String update(Model model, @PathVariable("id") int id,
+                  @ModelAttribute("product") Product product,
+                  @ModelAttribute("id_category") int id_category){
+        Category category = categoryRepository.findById(id_category).orElseThrow();
+        Product productToUpdate = productRepository.findById(id).orElseThrow();
+        productToUpdate.setName(product.getName());
+        productToUpdate.setPrice(product.getPrice());
+        productToUpdate.setDescription(product.getDescription());
+        productToUpdate.setCategory(category);
+        productRepository.save(productToUpdate);
+        return "redirect:/product/product";
+    }
+
     @PostMapping("/product/add")
     String store(Model model, @Valid @ModelAttribute("product") Product product,
                  @RequestParam(name="id_category", required = false) int id_category){
